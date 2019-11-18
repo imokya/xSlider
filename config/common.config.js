@@ -67,7 +67,7 @@ module.exports = {
         useShortDoctype: true
       },
       inject: false,
-      template: 'src/index.ejs'
+      template: 'src/template/index.ejs'
     })
   ],
 
