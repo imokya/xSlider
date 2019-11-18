@@ -1,5 +1,7 @@
 {
   "plugins": [
+    "@babel/plugin-transform-arrow-functions",
+    "@babel/plugin-transform-async-to-generator",
     [
       "@babel/plugin-transform-runtime",
       {
@@ -8,15 +10,6 @@
         "helpers": true,
         "regenerator": true,
         "useESModules": false
-      }
-    ]
-  ],
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "entry",
-        "corejs": 3
       }
     ]
   ]

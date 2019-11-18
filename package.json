@@ -48,7 +48,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.7.2",
-    "@babel/runtime-corejs2": "^7.7.2",
+    "@babel/runtime-corejs3": "^7.7.2",
     "webpack-zepto": "0.0.1"
   }
 }
