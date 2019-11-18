@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "pages/home",
+    "pages/about",
+    "pages/contact"
+  ],
+  "viewport": "device-width",
+  "title": "xSlider",
+  "version": "1",
+  "publicPath": "/",
+  "hash": false
+}
