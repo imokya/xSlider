@@ -90,7 +90,7 @@ class App {
       this.router.go(this.path)
       nexSlide.js.el = this.nexEl.firstChild
       nexSlide.js.init && nexSlide.js.init()
-      setTimeout(this._onTransitionEnd.bind(this), conf.duration)
+      this._id = setTimeout(this._onTransitionEnd.bind(this), conf.duration)
       this.changing = true
     }
   }

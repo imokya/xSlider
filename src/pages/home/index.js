@@ -4,8 +4,7 @@ export default {
 
   async init() {
     console.log('init')
-    const res = await this._countDown()
-    console.log(res)
+    //const res = await this._countDown()
   },
 
   _countDown() {
