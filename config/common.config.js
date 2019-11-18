@@ -28,6 +28,7 @@ module.exports = {
     rules: [
       { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
       { test: /\.html$/, exclude: /node_modules/, loader: 'html-loader' },
+      
       {
         test: /\.(png|jpg|gif)$/i,
         use: [
@@ -71,6 +72,6 @@ module.exports = {
     })
   ],
 
-  stats: 'minimal'
+  stats: 'normal'
 
 }

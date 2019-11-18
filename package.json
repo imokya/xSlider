@@ -7,11 +7,15 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config config/dev.config.js",
     "build": "cross-env NODE_ENV=production webpack --config config/prod.config.js"
   },
-  "keywords": ["slider", "swiper"],
+  "keywords": [
+    "slider",
+    "swiper"
+  ],
   "author": "xingway",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.7.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.7.1",
     "autoprefixer": "^9.7.1",
     "babel-loader": "^8.0.6",
@@ -22,7 +26,9 @@
     "file-loader": "^4.2.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "install": "^0.13.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "npm": "^6.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "style-loader": "^1.0.0",
@@ -41,6 +47,8 @@
     "Android >= 4.4"
   ],
   "dependencies": {
+    "@babel/runtime": "^7.7.2",
+    "@babel/runtime-corejs2": "^7.7.2",
     "webpack-zepto": "0.0.1"
   }
 }
