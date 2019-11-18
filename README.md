@@ -1,6 +1,9 @@
 # xSlider
 基于webpack构建的脚手架，可以用来方便的创建手机端单页web app项目，持续完善中。
 
+### CHANGELOG
+* 不再依赖swiper插件
+
 ### Features
 * 支持页面事件
 * 支持CSS模块化
