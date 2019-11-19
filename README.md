@@ -3,8 +3,8 @@
 
 ### CHANGELOG
 #### v0.1.1
-* 修正一些bug
-* 不再依赖swiper插件
+* 由于swiper的一些bug，不再依赖swiper插件
+* 修正一些bug，优化dom操作，重写翻页逻辑
 
 ### Features
 * 支持页面事件
