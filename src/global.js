@@ -26,6 +26,7 @@ class Global {
         }
       }
       const path = getPath()
+      console.log(path)
       app.slideTo(path)
     })
   }

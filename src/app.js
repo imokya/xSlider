@@ -79,20 +79,43 @@ class App {
 
   _beginSlideChange(nexIndex) {
     if (!this.changing) {
-      const conf = this.conf
       const actIndex = this.slidePaths.indexOf(this.path)
       const nexSlide = this.slides[nexIndex]
-      this._prevSlide = this.slides[actIndex]
-      this.nexEl.innerHTML = nexSlide.el
-      this.actEl.style.animationDuration = `${conf.duration}ms`
+      this.prevSlide = this.slides[actIndex]
+  
+      //optimize dom manipulation
+      if (nexSlide.path !== this.nexSlide.path) {
+        this.nexEl.innerHTML = nexSlide.el
+      }
+      //reset next slide
+      this.nexSlide = this.prevSlide
+      
+      this.actEl.style.animationDuration = `${this.conf.duration}ms`
       this.actEl.classList.add('slide-fade-out')
-      this.path = nexSlide.path
-      this.router.go(this.path)
+
+      //trigger init event
       nexSlide.js.el = this.nexEl.firstChild
       nexSlide.js.init && nexSlide.js.init()
-      this._id = setTimeout(this._onTransitionEnd.bind(this), conf.duration)
+
+      //set current path
+      this.path = nexSlide.path
+      this.router.go(this.path)
+
+      this._id = setTimeout(this._onTransitionEnd.bind(this), this.conf.duration)
       this.changing = true
     }
+  }
+
+  _onTransitionEnd() {
+    //trigger destroy event 
+    this.prevSlide.js.destroy && this.prevSlide.js.destroy() 
+
+    this.actEl.classList.remove('slide-active', 'slide-fade-out')
+    this.nexEl.classList.add('slide-active')
+    const tmpEl = this.actEl
+    this.actEl = this.nexEl
+    this.nexEl = tmpEl
+    this.changing = false
   }
 
   slideNext() {
@@ -111,19 +134,8 @@ class App {
     if (path === this.path) return
     const nexIndex = this.slidePaths.indexOf(path)
     if (nexIndex !== -1) {
-      this.path = path
       this._beginSlideChange(nexIndex)
     }
-  }
-
-  _onTransitionEnd() {
-    this._prevSlide.js.destroy && this._prevSlide.js.destroy() 
-    this.actEl.classList.remove('slide-active', 'slide-fade-out')
-    this.nexEl.classList.add('slide-active')
-    const tmpEl = this.actEl
-    this.actEl = this.nexEl
-    this.nexEl = tmpEl
-    this.changing = false
   }
 
   _initSlideEl() {
@@ -134,19 +146,27 @@ class App {
     const nexSlide = this.slides[nexIndex]
     this.actEl.innerHTML = actSlide.el
     this.nexEl.innerHTML = nexSlide.el
+
+    //set path
     this.router.go(path)
     this.path = path
+
+    //single page slide
     if (this.slides.length === 1) {
       this.conf.allowTouchMove = false
       this.el.removeChild(this.nexEl)
     }
+
+    //trigger init event
     actSlide.js.el = this.actEl.firstChild
     actSlide.js.init && actSlide.js.init()
+
+    this.actSlide = actSlide
+    this.nexSlide = nexSlide
   }
 
   _initDom() {
-    const sel = this.conf.el
-    const el = document.querySelector(sel)
+    const el = document.querySelector(this.conf.el)
     const actEl = document.createElement('div')
     const nexEl = document.createElement('div')
     actEl.classList.add('slide', 'slide-active')
