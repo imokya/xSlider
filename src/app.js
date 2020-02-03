@@ -11,7 +11,7 @@ class App {
       duration: 350,
       direction: 'vertical',
       initialPath: 'home',
-      allowTouchMove: false
+      allowTouchMove: true
     }
     this.conf = Object.assign(_conf, conf)
     this._init()
@@ -121,13 +121,17 @@ class App {
   slideNext() {
     const actIndex = this.slidePaths.indexOf(this.path)
     const nexIndex = actIndex + 1 > this.slides.length - 1 ? 0 : actIndex + 1
-    this._beginSlideChange(nexIndex)
+    if (actIndex !== nexIndex) {
+      this._beginSlideChange(nexIndex)
+    }
   }
 
   slidePrev() {
     const actIndex = this.slidePaths.indexOf(this.path)
     const nexIndex = actIndex - 1 < 0 ? this.slides.length - 1 : actIndex - 1
-    this._beginSlideChange(nexIndex)
+    if (actIndex !== nexIndex) {
+      this._beginSlideChange(nexIndex)
+    }
   }
 
   slideTo(path) {
@@ -151,12 +155,6 @@ class App {
     this.router.go(path)
     this.path = path
 
-    //single page slide
-    if (this.slides.length === 1) {
-      this.conf.allowTouchMove = false
-      this.el.removeChild(this.nexEl)
-    }
-
     //trigger init event
     actSlide.js.el = this.actEl.firstChild
     actSlide.js.init && actSlide.js.init()
@@ -167,15 +165,25 @@ class App {
 
   _initDom() {
     const el = document.querySelector(this.conf.el)
-    const actEl = document.createElement('div')
-    const nexEl = document.createElement('div')
-    actEl.classList.add('slide', 'slide-active')
-    nexEl.classList.add('slide', 'slide-next') 
-    el.appendChild(actEl)
-    el.appendChild(nexEl)
-    this.actEl = actEl
-    this.nexEl = nexEl
+    this._initActEl(el)
+    this._initNexEl(el)
     this.el = el
+  }
+
+  _initActEl(el) {
+    const actEl = document.createElement('div')
+    actEl.classList.add('slide', 'slide-active')
+    el.appendChild(actEl)
+    this.actEl = actEl
+  }
+
+  _initNexEl(el) {
+    const nexEl = document.createElement('div')
+    nexEl.classList.add('slide', 'slide-next') 
+    if (config.pages.length > 1) {
+      el.appendChild(nexEl)
+    }
+    this.nexEl = nexEl
   }
 
   _initRouter() {

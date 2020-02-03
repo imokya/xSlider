@@ -17,16 +17,15 @@ class Global {
     })
     $(document).on('click', '.button.random', e=> {
       const paths = app.slidePaths
-      const getPath = function() {
+      const getPath = ()=> {
         const path = paths[Math.random() * paths.length | 0]
-        if (path === app.path) {
+        if (path === app.path && paths.length !== 1) {
           return getPath()
         } else {
           return path
         }
       }
       const path = getPath()
-      console.log(path)
       app.slideTo(path)
     })
   }
