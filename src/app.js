@@ -111,7 +111,9 @@ class App {
     this.prevSlide.js.destroy && this.prevSlide.js.destroy() 
 
     this.actEl.classList.remove('slide-active', 'slide-fade-out')
+    this.actEl.classList.add('slide-next')
     this.nexEl.classList.add('slide-active')
+    this.nextEl.classList.remove('slide-next')
     const tmpEl = this.actEl
     this.actEl = this.nexEl
     this.nexEl = tmpEl
